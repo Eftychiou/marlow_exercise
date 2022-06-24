@@ -1,0 +1,27 @@
+.notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  height: 5rem;
+  bottom: 0;
+  width: 400px;
+  left: calc(50% - 200px);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: rgb(196, 73, 73);
+  animation-name: appear;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  z-index: 100;
+}
+
+@keyframes appear {
+  0% {
+    transform: translate(0, 80px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}

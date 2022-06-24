@@ -1,0 +1,8 @@
+export const SEARCH_VIDEO = "SEARCH_VIDEO";
+export const SELECT_VIDEO = "SELECT_VIDEO";
+export const LIST_VIDEOS = "LIST_VIDEOS";
+
+export const STORE_COMMENTS = "STORE_COMMENTS";
+export const APPEND_COMMENTS = "APPEND_COMMENTS";
+export const LOAD_COMMENTS = "LOAD_COMMENTS";
+export const LOAD_REPLIES = "LOAD_REPLIES";
