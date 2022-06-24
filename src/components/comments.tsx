@@ -41,47 +41,46 @@ const Comments = ({
     setIsShowNotification(true);
     setTimeout(() => setIsShowNotification(false), 2000);
   };
+
   return (
-    <div className="col-lg-8 order-md-4">
-    <div className={classes.Comments}>
-      <div className={classes.topContainer}>
-        <div className={classes.totalComments}>n/a Comments</div>
-        <div>
-          <img src='/sort.png' alt='sort' />
-          <h4>SORT BY</h4>
+    <div className='col-lg-8 order-md-4'>
+      <div className={classes.Comments}>
+        <div className={classes.topContainer}>
+          <div className={classes.totalComments}>n/a Comments</div>
+          <div>
+            <img src='/sort.png' alt='sort' />
+            <h4>SORT BY</h4>
+          </div>
         </div>
-      </div>
-      <div className={classes.addCommentContainer}>
-        <div className={classes.top}>
-          <img alt='me' src='/images/me.png' className={classes.image} />
-          <Input value='comment' label='Add a comment...' />
+        <div className={classes.addCommentContainer}>
+          <div className={classes.top}>
+            <img alt='me' src='/images/me.png' className={classes.image} />
+            <Input value='comment' label='Add a comment...' />
+          </div>
+          <div className={classes.bottomRightBtns}>
+            <Button onclick={showNotification}>CANCEL</Button>
+            <Button disabled={true} onclick={showNotification}>
+              COMMENT
+            </Button>
+          </div>
         </div>
-        <div className={classes.bottomRightBtns}>
-          <Button onclick={showNotification}>
-            CANCEL
-          </Button>
-          <Button disabled={true} onclick={showNotification}>
-            COMMENT
-          </Button>
+        <div className={classes.commentsList}>
+          {selectedVideoComments.items?.map((commentData, index) => (
+            <Comment
+              key={index}
+              commentData={commentData}
+              lastComRef={lastCommentRef}
+              isLastComment={
+                selectedVideoComments.items.length === index + 1 ? true : false
+              }
+              videoId={videoId}
+              onLoadCommentsReplies={onLoadCommentsReplies}
+              showNotification={showNotification}
+            />
+          ))}
         </div>
+        {isShowNotification && <Notification />}
       </div>
-      <div className={classes.commentsList}>
-        {selectedVideoComments.items?.map((commentData, index) => (
-          <Comment
-            key={index}
-            commentData={commentData}
-            lastComRef={lastCommentRef}
-            isLastComment={
-              selectedVideoComments.items.length === index + 1 ? true : false
-            }
-            videoId={videoId}
-            onLoadCommentsReplies={onLoadCommentsReplies}
-            showNotification={showNotification}
-          />
-        ))}
-      </div>
-      {isShowNotification && <Notification />}
-    </div>
     </div>
   );
 };

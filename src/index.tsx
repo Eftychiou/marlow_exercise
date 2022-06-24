@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import videosReducer from "./store/reducers/videos";
 import commentsReducer from "./store/reducers/comments";
+import ErrorBoundary from "./hoc/ErrorBoundary";
 
 const composeEnhancers =
   (window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] as typeof compose) || compose;
@@ -15,11 +16,16 @@ const rootReducer = combineReducers({
   comments: commentsReducer,
 });
 
-const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </Provider>,
   document.getElementById("root")
 );

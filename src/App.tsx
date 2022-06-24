@@ -11,10 +11,15 @@ import * as actions from "./store/actions/index";
 import { IVideo } from "./interfaces/video";
 import { ICombinedState } from "./interfaces/state";
 import Comments from "./components/comments";
-import {Root as CommentsData} from './interfaces/comments';
+import { Root as CommentsData } from "./interfaces/comments";
 
-const App = ({onSearchVideoHandler,selectedVideoComments}:{onSearchVideoHandler:Function,selectedVideoComments:CommentsData}) => {
-  
+const App = ({
+  onSearchVideoHandler,
+  selectedVideoComments,
+}: {
+  onSearchVideoHandler: Function;
+  selectedVideoComments: CommentsData;
+}) => {
   useEffect(() => {
     videoSearch("quagmire");
   }, []);
@@ -34,7 +39,7 @@ const App = ({onSearchVideoHandler,selectedVideoComments}:{onSearchVideoHandler:
     []
   );
   return (
-    <div className="d-flex">      
+    <div className='d-flex'>
       <SearchBar onSearchTermChange={videoSearch} />
       <VideoDetail />
       <VideoList />
@@ -44,11 +49,10 @@ const App = ({onSearchVideoHandler,selectedVideoComments}:{onSearchVideoHandler:
 };
 
 const mapStateToProps = (state: ICombinedState) => {
-  return {    
+  return {
     selectedVideoComments: state.comments.selectedVideoComments,
   };
 };
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
