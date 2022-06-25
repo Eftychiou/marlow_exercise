@@ -65,13 +65,15 @@ const Comments = ({
           </div>
         </div>
         <div className={classes.commentsList}>
-          {selectedVideoComments.items?.map((commentData, index) => (
+          {selectedVideoComments?.items?.map((commentData, index) => (
             <Comment
               key={index}
               commentData={commentData}
               lastComRef={lastCommentRef}
               isLastComment={
-                selectedVideoComments.items.length === index + 1 ? true : false
+                selectedVideoComments?.items?.length === index + 1
+                  ? true
+                  : false
               }
               videoId={videoId}
               onLoadCommentsReplies={onLoadCommentsReplies}

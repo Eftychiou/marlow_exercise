@@ -15,20 +15,21 @@ export default function Reply({
     <div className={classes.Comment}>
       <div className={classes.left}>
         <img
-          src={replyData.snippet.authorProfileImageUrl}
+          src={replyData?.snippet?.authorProfileImageUrl}
           alt='MarlowExercise'
           onError={setFallbackImg}
         />
       </div>
       <div className={classes.right}>
         <h3 className={classes.user}>
-          {replyData.snippet.authorDisplayName}{" "}
-          <span>{dateDif(replyData.snippet.publishedAt)}</span>
+          {replyData?.snippet?.authorDisplayName}{" "}
+          <span>{dateDif(replyData?.snippet?.publishedAt)}</span>
         </h3>
-        <p className={classes.text}>{replyData.snippet.textDisplay}</p>
+        <p className={classes.text}>{replyData?.snippet?.textDisplay}</p>
         <p className={classes.likesDislikes} onClick={showNotification}>
           <span>
-            <FontAwesomeIcon icon={faThumbsUp} /> {replyData.snippet.likeCount}
+            <FontAwesomeIcon icon={faThumbsUp} />{" "}
+            {replyData?.snippet?.likeCount}
           </span>
           <span>
             <FontAwesomeIcon icon={faThumbsDown} /> N/A

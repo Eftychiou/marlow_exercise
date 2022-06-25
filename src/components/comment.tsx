@@ -54,7 +54,8 @@ export default function Comment({
       <div className={classes.left}>
         <img
           src={
-            commentData.snippet.topLevelComment.snippet.authorProfileImageUrl
+            commentData?.snippet?.topLevelComment?.snippet
+              ?.authorProfileImageUrl
           }
           alt='MarlowExercise'
           onError={setFallbackImg}
@@ -62,18 +63,20 @@ export default function Comment({
       </div>
       <div className={classes.right}>
         <h4 className={classes.user}>
-          {commentData.snippet.topLevelComment.snippet.authorDisplayName}
+          {commentData?.snippet?.topLevelComment?.snippet?.authorDisplayName}
           <span>
-            {dateDif(commentData.snippet.topLevelComment.snippet.publishedAt)}
+            {dateDif(
+              commentData?.snippet?.topLevelComment?.snippet?.publishedAt
+            )}
           </span>
         </h4>
         <p className={classes.text}>
-          {commentData.snippet.topLevelComment.snippet.textDisplay}
+          {commentData?.snippet?.topLevelComment?.snippet?.textDisplay}
         </p>
         <p className={classes.likesDislikes} onClick={showNotification}>
           <span>
             <FontAwesomeIcon icon={faThumbsUp} style={{ cursor: "pointer" }} />{" "}
-            {commentData.snippet.topLevelComment.snippet.likeCount}
+            {commentData?.snippet?.topLevelComment?.snippet?.likeCount}
           </span>
           <span>
             <FontAwesomeIcon
@@ -84,16 +87,16 @@ export default function Comment({
           </span>
           <span>REPLY</span>
         </p>
-        {commentData.snippet.totalReplyCount !== 0 && (
+        {commentData?.snippet?.totalReplyCount !== 0 && (
           <p
             className={classes.repliesLength}
-            onClick={() => loadRepliesForAComment(commentData.id)}>
+            onClick={() => loadRepliesForAComment(commentData?.id)}>
             <FontAwesomeIcon
               icon={faSortDown}
               style={{ verticalAlign: "top", marginRight: "0.5rem" }}
             />{" "}
-            {commentData.snippet.totalReplyCount}{" "}
-            {commentData.snippet.totalReplyCount === 1 ? "Reply" : "Replies"}
+            {commentData?.snippet?.totalReplyCount}{" "}
+            {commentData?.snippet?.totalReplyCount === 1 ? "Reply" : "Replies"}
           </p>
         )}
 

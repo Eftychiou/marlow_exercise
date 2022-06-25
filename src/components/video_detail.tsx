@@ -11,14 +11,14 @@ const VideoDetail = ({ selectedVideo }: VideoDetailProps) => {
     <div className='video-detail col-lg-8 order-lg-2'>
       <div className='embed-responsive embed-responsive-16by9'>
         <iframe
-          title={selectedVideo.snippet.title}
+          title={selectedVideo?.snippet?.title}
           className='embed-responsive-item'
           src={url}
         />
       </div>
       <div className='details'>
-        <div>{selectedVideo.snippet.title}</div>
-        <div>{selectedVideo.snippet.description}</div>
+        <div>{selectedVideo?.snippet?.title}</div>
+        <div>{selectedVideo?.snippet?.description}</div>
       </div>
     </div>
   );

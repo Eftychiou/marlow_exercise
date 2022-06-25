@@ -38,6 +38,7 @@ const App = ({
     _.debounce((term) => delayedVideoSearch(term), 1000),
     []
   );
+
   return (
     <div className='d-flex'>
       <SearchBar onSearchTermChange={videoSearch} />

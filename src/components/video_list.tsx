@@ -5,10 +5,14 @@ import VideoListItem from "./video_list_item";
 import { IVideo } from "../interfaces/video";
 import { VideoListProps } from "../interfaces/components";
 import { ICombinedState } from "../interfaces/state";
-const VideoList = ({ videos,  onVideoSelectHandler}:VideoListProps) => {
-  const videoItems = videos.map((video: IVideo) => {
+const VideoList = ({ videos, onVideoSelectHandler }: VideoListProps) => {
+  const videoItems = videos?.map((video: IVideo) => {
     return (
-      <VideoListItem onVideoSelect={onVideoSelectHandler} key={video.etag} video={video} />
+      <VideoListItem
+        onVideoSelect={onVideoSelectHandler}
+        key={video?.etag}
+        video={video}
+      />
     );
   });
 
@@ -17,7 +21,7 @@ const VideoList = ({ videos,  onVideoSelectHandler}:VideoListProps) => {
 
 const mapStateToProps = (state: ICombinedState) => {
   return {
-    videos: state.videos.videos,    
+    videos: state.videos.videos,
   };
 };
 
