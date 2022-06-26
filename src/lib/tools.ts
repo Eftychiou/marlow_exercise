@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Root as CommentsData } from "../interfaces/comments";
 
-export const constructYoutubeApiUrl = (...params: any) => {
+export const constructYoutubeApiUrl = (...params: any):string => {
   let theUrl: string = "";
   for (let index = 0; index < params.length; index++) {
     let tempString: string = "";
@@ -19,7 +19,7 @@ export const constructYoutubeApiUrl = (...params: any) => {
   return theUrl;
 };
 
-export const dateDif = (pastDate: string) => {
+export const dateDif = (pastDate: string):string => {
   const past = new Date(pastDate);
   const today = new Date();
   const diff = Math.floor(today.getTime() - past.getTime());
@@ -40,11 +40,11 @@ export const dateDif = (pastDate: string) => {
   return message;
 };
 
-export const setFallbackImg = (e) => {
+export const setFallbackImg = (e):void => {
   (e.target as HTMLImageElement).src = "/images/me.png";
 };
 
-export const loadComments = (videoId: string, nextPageToken?: string) => {
+export const loadComments = (videoId: string, nextPageToken?: string):Promise<any> => {
   const url = constructYoutubeApiUrl(
     { url: "https://youtube.googleapis.com/youtube/v3/commentThreads" },
     { part: "id,snippet" },

@@ -1,13 +1,13 @@
-import * as actionTypes from "../actions/actionTypes";
+import ActionTypes from "../actions/actionTypes";
 import { Replies } from "src/interfaces/reply";
 import { Root as CommentsData } from "../../interfaces/comments";
 import { loadComments } from "../../lib/tools";
 
 export const storeComments = (loadedComments: CommentsData) => {
-  return { type: actionTypes.STORE_COMMENTS, loadedComments };
+  return { type: ActionTypes.STORE_COMMENTS, loadedComments };
 };
 export const appendNextPageData = (commentsData: CommentsData) => {
-  return { type: actionTypes.APPEND_COMMENTS, commentsData };
+  return { type: ActionTypes.APPEND_COMMENTS, commentsData };
 };
 
 export const loadAndAppendNextPageData = (
@@ -27,5 +27,5 @@ export const loadAndAppendNextPageData = (
 };
 
 export const loadCommentReplies = (replies: Replies, parentId: string) => {
-  return { type: actionTypes.LOAD_REPLIES, replies, parentId };
+  return { type: ActionTypes.LOAD_REPLIES, replies, parentId };
 };

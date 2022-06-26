@@ -37,7 +37,7 @@ const Comments = ({
     [nextPageToken]
   );
 
-  const showNotification = () => {
+  const showNotification = ():void => {
     setIsShowNotification(true);
     setTimeout(() => setIsShowNotification(false), 2000);
   };

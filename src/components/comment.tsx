@@ -1,18 +1,38 @@
+import { faThumbsUp,faThumbsDown,faSortDown,faEllipsisV} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useReducer } from "react";
+import axios from "axios";
+
 import classes from "./comment.module.scss";
 import { CommentProps } from "../interfaces/components";
 import { Replies, Item as IReply } from "../interfaces/reply";
 import Reply from "./reply";
 import { dateDif, setFallbackImg } from "../lib/tools";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { constructYoutubeApiUrl } from "../lib/tools";
-import {
-  faThumbsUp,
-  faThumbsDown,
-  faSortDown,
-  faEllipsisV,
-} from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
-import axios from "axios";
+
+
+enum ActionKind {
+  LoadReplies = "LOAD_REPLIES",
+  ResetReplies = "RESET_REPLIES",
+  ToggleReplies = "TOGGLE_REPLIES",
+}
+
+interface RepliesState {isShowReplies: boolean;repliesLoaded: boolean;}
+
+type Action = {type: ActionKind;isShowReplies?: boolean;repliesLoaded?: boolean;};
+
+//The reducer here is kept outside the component function since there is no need to be rerender
+const repliesReducer = (state: RepliesState, action: Action): RepliesState => {
+  const { type } = action;
+  const { isShowReplies, repliesLoaded } = state;
+  switch (type) {
+    case ActionKind.LoadReplies: return { isShowReplies: true,repliesLoaded: true};
+    case ActionKind.ResetReplies: return { isShowReplies: false,repliesLoaded: false};      
+    case ActionKind.ToggleReplies: return { isShowReplies: !isShowReplies,repliesLoaded};
+    default: return state;
+  }
+};
+const initialRepliesState:RepliesState ={isShowReplies: false,repliesLoaded: false}
 
 export default function Comment({
   commentData,
@@ -22,15 +42,17 @@ export default function Comment({
   showNotification,
   isLastComment,
 }: CommentProps) {
+
+  //since the state of isShowReplies and repliesLoaded is related i used useReducer so their change happens in one call
+  const [repliesState, dispatchReplies] = useReducer(repliesReducer, initialRepliesState);
+  const { isShowReplies, repliesLoaded } = repliesState;
   useEffect(() => {
     //Togglening off all replies buttons for the next search video
-    setIsShowReplies(false);
-    setRepliesLoaded(false);
+    dispatchReplies({ type: ActionKind.ResetReplies });
   }, [videoId]);
-  const [isShowReplies, setIsShowReplies] = useState(false);
-  const [repliesLoaded, setRepliesLoaded] = useState(false);
 
-  const loadRepliesForAComment = (parentId) => {
+
+  const loadRepliesForAComment = (parentId: string): void => {
     const url = constructYoutubeApiUrl(
       { url: "https://youtube.googleapis.com/youtube/v3/comments" },
       { part: "id,snippet" },
@@ -43,11 +65,10 @@ export default function Comment({
       axios(url as string)
         .then(({ data }: { data: Replies }) => {
           onLoadCommentsReplies(data, parentId);
-          setIsShowReplies((prevState) => !prevState);
-          setRepliesLoaded(true);
+          dispatchReplies({ type: ActionKind.LoadReplies });
         })
         .catch((err) => console.log(err));
-    } else setIsShowReplies((prevState) => !prevState);
+    } else dispatchReplies({ type: ActionKind.ToggleReplies });
   };
   return (
     <div className={classes.Comment} ref={isLastComment ? lastComRef : null}>

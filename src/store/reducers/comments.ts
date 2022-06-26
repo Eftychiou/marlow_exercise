@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import * as actionTypes from "../actions/actionTypes";
+import ActionTypes from "../actions/actionTypes";
 import { ICommentsState } from "../../interfaces/state";
 import { IAction } from "../../interfaces/actions";
 import { Root as CommentsData } from "../../interfaces/comments";
@@ -12,7 +12,7 @@ const initialState: ICommentsState = {
 const loadComments = (
   state: ICommentsState,
   { commentsData }: { commentsData: CommentsData }
-) => {
+):ICommentsState => {
   const clonedState = _.cloneDeep(state);
   clonedState.selectedVideoComments = commentsData;
   return clonedState;
@@ -21,7 +21,7 @@ const loadComments = (
 const storeComments = (
   state: ICommentsState,
   { commentsData }: { commentsData: CommentsData }
-) => {
+):ICommentsState => {
   const clonedState = _.cloneDeep(state);
   clonedState.selectedVideoComments = commentsData;
   return clonedState;
@@ -30,7 +30,7 @@ const storeComments = (
 const appendComments = (
   state: ICommentsState,
   { commentsData }: { commentsData: CommentsData }
-) => {
+):ICommentsState => {
   const clonedState = _.cloneDeep(state);
   clonedState.selectedVideoComments.items = [
     ...clonedState.selectedVideoComments.items,
@@ -39,7 +39,7 @@ const appendComments = (
   return clonedState;
 };
 
-const loadReplies = (state: ICommentsState, action) => {
+const loadReplies = (state: ICommentsState, action):ICommentsState => {
   const clonedState = _.cloneDeep(state);
   const replies = action.replies;
   const parentId = action.parentId;
@@ -52,10 +52,10 @@ const loadReplies = (state: ICommentsState, action) => {
 
 const reducer = (state = initialState, action: IAction) => {
   switch (action.type) {
-    case actionTypes.LOAD_COMMENTS: return loadComments(state, action);
-    case actionTypes.STORE_COMMENTS: return storeComments(state, action);
-    case actionTypes.APPEND_COMMENTS: return appendComments(state, action);
-    case actionTypes.LOAD_REPLIES: return loadReplies(state, action);
+    case ActionTypes.LOAD_COMMENTS: return loadComments(state, action);
+    case ActionTypes.STORE_COMMENTS: return storeComments(state, action);
+    case ActionTypes.APPEND_COMMENTS: return appendComments(state, action);
+    case ActionTypes.LOAD_REPLIES: return loadReplies(state, action);
     default: return state;
   }
 };

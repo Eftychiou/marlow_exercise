@@ -1,5 +1,5 @@
 import classes from "./Button.module.scss";
-export default function Button({ children, disabled=false, onclick }:{children:any,disabled?:boolean ,onclick}) {
+export default function Button({ children, disabled=false, onclick }:{children,disabled?:boolean ,onclick}) {
   return (
     <button
       disabled={disabled && true}
